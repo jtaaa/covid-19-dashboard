@@ -113,7 +113,7 @@ def update_selected_regions(includedRegions):
     [Input(component_id='region-search', component_property='value')]
 )
 def update_selectable_regions(query):
-    return getOptions(query)
+    return getOptions(query if query else "")
 # ---
 
 
