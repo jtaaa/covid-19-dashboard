@@ -2,21 +2,22 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from datamanager import importData, datasources
-import argparse
+import os
+# import argparse
 import pandas as pd
 import numpy as np
 from textwrap import dedent as d
 from dash.dependencies import Input, Output
+from datamanager import importData, datasources
 
 
 # ---
 # Argumemnt parsing
-parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--fresh",
-                    action='store_true',
-                    help="Import fresh data from github repo (https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).")
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-f", "--fresh",
+#                     action='store_true',
+#                     help="Import fresh data from github repo (https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).")
+# args = parser.parse_args()
 # ---
 
 # ---
@@ -47,15 +48,16 @@ def getOptions(query=""):
     return list(map(lambda x: {
         'label': x, 'value': x
     }, filter(lambda x: x.find(query) != -1, regions)))
-
-
 # ---
+
 
 # ---
 # App setup
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
 server = app.server
+server.secret_key = os.environ.get('secret_key', os.urandom(24))
 
 app.layout = html.Div(children=[
     dcc.Markdown(d("""
@@ -118,7 +120,7 @@ def update_selectable_regions(query):
 # ---
 # Main (entry)
 if __name__ == '__main__':
-    if args.fresh:
-        importData()
+    # if args.fresh:
+    #     importData()
     app.run_server(debug=True)
 # ---
