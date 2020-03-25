@@ -67,6 +67,7 @@ app.layout = html.Div(children=[
 
         All data is downloaded from [here](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).
     """)),
+    dcc.Markdown("## Confirmed Cases by Region"),
     dcc.Graph(
         id="confirmed-cases",
         figure={
