@@ -43,6 +43,7 @@ def getData(includedRegions):
 
 
 regions = confirmed["Country/Region"]
+DEFAULT_SELECTED_REGIONS = ['Trinidad and Tobago', 'Canada']
 
 
 def getOptions(query=""):
@@ -85,7 +86,7 @@ app.layout = html.Div(children=[
     dcc.Checklist(
         id="region-selector",
         options=getOptions(),
-        value=[]
+        value=DEFAULT_SELECTED_REGIONS
     ),
 ])
 # ---
