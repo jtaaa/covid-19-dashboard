@@ -96,8 +96,8 @@ app.layout = html.Div(children=[
 
 
 @app.callback(
-    Output(component_id='confirmed-cases', component_property='figure'),
-    [Input(component_id='region-selector', component_property='value')]
+    Output(component_id="confirmed-cases", component_property="figure"),
+    [Input(component_id="region-selector", component_property="value")]
 
 
 )
@@ -111,8 +111,8 @@ def update_selected_regions(includedRegions):
 
 
 @app.callback(
-    Output(component_id='region-selector', component_property='options'),
-    [Input(component_id='region-search', component_property='value')]
+    Output(component_id="region-selector", component_property="options"),
+    [Input(component_id="region-search", component_property="value")]
 )
 def update_selectable_regions(query):
     return getOptions(query if query else "")
