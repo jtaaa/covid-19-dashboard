@@ -61,7 +61,7 @@ server.secret_key = os.environ.get('secret_key', os.urandom(24))
 
 app.layout = html.Div(children=[
     dcc.Markdown(d("""
-        # Hello! Welcome to my covid-19 website. ily <3
+        # Hello! Welcome to my Covid-19 dashboard thingy.
 
         All data is downloaded from [here](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).
     """)),
