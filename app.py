@@ -98,8 +98,6 @@ app.layout = html.Div(children=[
 @app.callback(
     Output(component_id="confirmed-cases", component_property="figure"),
     [Input(component_id="region-selector", component_property="value")]
-
-
 )
 def update_selected_regions(includedRegions):
     return {
