@@ -3,6 +3,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import os
+import re
 # import argparse
 import pandas as pd
 import numpy as np
@@ -47,7 +48,7 @@ regions = confirmed["Country/Region"]
 def getOptions(query=""):
     return list(map(lambda x: {
         'label': x, 'value': x
-    }, filter(lambda x: x.find(query) != -1, regions)))
+    }, filter(lambda x: re.search(query, x, re.IGNORECASE), regions)))
 # ---
 
 
