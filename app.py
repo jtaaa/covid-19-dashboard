@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from textwrap import dedent as d
 from dash.dependencies import Input, Output
-from datamanager import importData, datasources
+from datamanager import importData, datasources, confirmed, dates
 
 
 # ---
@@ -21,18 +21,14 @@ from datamanager import importData, datasources
 # args = parser.parse_args()
 # ---
 
-# ---
-# Data loading
-confirmed = pd.read_csv("confirmed_ts.csv")
-confirmed = confirmed.groupby("Country/Region").sum().reset_index()
-
-confirmed_x = confirmed.columns[range(5, len(confirmed.columns))]
+DEFAULT_SELECTED_REGIONS = ['Trinidad and Tobago', 'Canada']
+regions = confirmed["Country/Region"]
 
 
 def getData(includedRegions):
     return list(map(
         lambda series: {
-            'x': confirmed_x,
+            'x': dates,
             'y': series[range(5, len(series))],
             'name': series[0]
         },
@@ -42,15 +38,10 @@ def getData(includedRegions):
     ))
 
 
-regions = confirmed["Country/Region"]
-DEFAULT_SELECTED_REGIONS = ['Trinidad and Tobago', 'Canada']
-
-
 def getOptions(query=""):
     return list(map(lambda x: {
         'label': x, 'value': x
     }, filter(lambda x: re.search(query, x, re.IGNORECASE), regions)))
-# ---
 
 
 # ---
@@ -71,7 +62,7 @@ app.layout = html.Div(children=[
     dcc.Graph(
         id="confirmed-cases",
         figure={
-            'data': getData([]),
+            'data': [],
             'layout': {
                 'title': 'Confirmed Cases'
             }
@@ -92,10 +83,9 @@ app.layout = html.Div(children=[
 ])
 # ---
 
+
 # ---
 # Update callbacks
-
-
 @app.callback(
     Output(component_id="confirmed-cases", component_property="figure"),
     [Input(component_id="region-selector", component_property="value")]

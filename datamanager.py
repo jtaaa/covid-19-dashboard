@@ -1,8 +1,10 @@
 import urllib.request
+import pandas as pd
+from utils.urls import CONFIRMED_URL
 
 datasources = {
     "confirmed_ts": {
-        "url": "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",
+        "url": CONFIRMED_URL,
         "name": "Confirmed cases timeseries data",
         "filename": "confirmed_ts.csv",
     },
@@ -18,3 +20,12 @@ def importData():
         print("'{}' download complete".format(datasource["name"]))
         print("Download file location: ", filename)
     print("Data download complete!")
+
+
+# ---
+# Data loading
+confirmed = pd.read_csv("confirmed_ts.csv")
+confirmed = confirmed.groupby("Country/Region").sum().reset_index()
+
+dates = confirmed.columns[range(5, len(confirmed.columns))]
+# ---
