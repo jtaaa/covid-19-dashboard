@@ -9,17 +9,8 @@ import pandas as pd
 import numpy as np
 from textwrap import dedent as d
 from dash.dependencies import Input, Output
-from datamanager import importData, datasources, confirmed, dates
+from data.manager import confirmed, dates
 
-
-# ---
-# Argumemnt parsing
-# parser = argparse.ArgumentParser()
-# parser.add_argument("-f", "--fresh",
-#                     action='store_true',
-#                     help="Import fresh data from github repo (https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).")
-# args = parser.parse_args()
-# ---
 
 DEFAULT_SELECTED_REGIONS = ['Trinidad and Tobago', 'Canada']
 regions = confirmed["Country/Region"]
@@ -111,7 +102,5 @@ def update_selectable_regions(query):
 # ---
 # Main (entry)
 if __name__ == '__main__':
-    # if args.fresh:
-    #     importData()
     app.run_server(debug=True)
 # ---
