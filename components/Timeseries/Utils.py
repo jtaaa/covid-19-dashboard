@@ -1,23 +1,26 @@
 import re
 
-from data.manager import confirmed, dates
+from data.manager import confirmed, recovered, deaths, dates
 
 
 DEFAULT_SELECTED_REGIONS = ['Trinidad and Tobago', 'Canada']
 regions = confirmed["Country/Region"]
 
 
-def getData(includedRegions):
-    return list(map(
-        lambda series: {
+def getSelectedData(df, includedRegions):
+    return [
+        {
             'x': dates,
             'y': series[range(5, len(series))],
             'name': series[0]
-        },
-        confirmed.loc[
-            confirmed["Country/Region"].map(lambda x: x in includedRegions),
-        ].to_numpy(),
-    ))
+        }
+        for series in
+        df[df["Country/Region"].isin(includedRegions)].values
+    ]
+
+
+def getData(includedRegions):
+    return [getSelectedData(df, includedRegions) for df in [confirmed, recovered, deaths]]
 
 
 def getOptions(query=""):

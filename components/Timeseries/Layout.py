@@ -8,15 +8,14 @@ from components.Timeseries.Utils import regions, DEFAULT_SELECTED_REGIONS, getOp
 
 TimeseriesLayout = html.Div(children=[
     dcc.Markdown("## Confirmed Cases by Region"),
-    dcc.Graph(
-        id="confirmed-cases",
-        figure={
-            'data': [],
-            'layout': {
-                'title': 'Confirmed Cases'
-            }
-        }
-    ),
+    html.Div(children=[
+        html.Div(children=dcc.Graph(id="confirmed-cases"),
+                 className="four columns"),
+        html.Div(children=dcc.Graph(id="recoveries"),
+                 className="four columns"),
+        html.Div(children=dcc.Graph(id="deaths"),
+                 className="four columns")
+    ], className="row"),
     dcc.Markdown(d("""
         # Region Selector
 
